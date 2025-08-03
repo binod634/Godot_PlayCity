@@ -25,7 +25,7 @@ size = Vector3(3.51, 0.11, 3.54)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_jyhfs"]
 margin = 0.02
-radius = 0.05
+radius = 0.0434058
 
 [sub_resource type="SphereMesh" id="SphereMesh_0wfyh"]
 material = ExtResource("3_sugp2")
@@ -174,7 +174,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.372, 0, 1.0075)
 shape = SubResource("BoxShape3D_tbgi4")
 
 [node name="player" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.11, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.591752, 0)
 script = ExtResource("3_jyhfs")
 
 [node name="playercamera" type="Camera3D" parent="player"]

@@ -16,8 +16,12 @@ func _physics_process(delta: float) -> void:
 	
 	
 	var move_vector := _get_input_vector()
+	print("Is on floor",is_on_floor())
+	if not is_on_floor():
+		move_vector =  move_vector - Vector3(0,1,0)
 	if move_vector != Vector3.ZERO:
-		move_and_collide(move_vector * delta * SPEED)
+		velocity = move_vector * delta * 30
+		move_and_slide()
 		$CSGSphere3D.rotate(_get_input_rotation_vector(),0.2)
 
 func _get_input_vector() -> Vector3:
