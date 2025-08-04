@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dcfwkmt46dtiv"
 path.s3tc="res://.godot/imported/wall.jpg-583acca7f322e136519348214268c13c.s3tc.ctex"
+path.etc2="res://.godot/imported/wall.jpg-583acca7f322e136519348214268c13c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://texture_pic/wall.jpg"
-dest_files=["res://.godot/imported/wall.jpg-583acca7f322e136519348214268c13c.s3tc.ctex"]
+dest_files=["res://.godot/imported/wall.jpg-583acca7f322e136519348214268c13c.s3tc.ctex", "res://.godot/imported/wall.jpg-583acca7f322e136519348214268c13c.etc2.ctex"]
 
 [params]
 

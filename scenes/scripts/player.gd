@@ -1,29 +1,69 @@
 extends CharacterBody3D
 
 # speed related normal properties
-@export var SPEED := 0.5
+@export var SPEED := 0.25
+@export var MOUSE_SENSATIVITY = 0.01
+
 
 @export_group("Input_Actions")
 @export var input_left := "ui_left"
 @export var input_right := "ui_right"
 @export var input_forward := "ui_up"
 @export var input_backward := "ui_down"
+@export var input_shift := "key_shift"
+
+
+# variables
+var running = false
+
+
+
+func _ready() -> void:
+	if not DisplayServer.is_touchscreen_available():
+		print("its touch screen")
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	pass
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventScreenDrag:
+		rotate_y(-event.relative.x * MOUSE_SENSATIVITY)
+		#$playercamera.rotate_x(-event.relative.y * )
+
 
 
 
 
 func _physics_process(delta: float) -> void:
-	
-	
 	var move_vector := _get_input_vector()
-	print("Is on floor",is_on_floor())
-	if not is_on_floor():
-		move_vector =  move_vector - Vector3(0,1,0)
-	if move_vector != Vector3.ZERO:
-		velocity = move_vector * delta * 30
-		move_and_slide()
-		$CSGSphere3D.rotate(_get_input_rotation_vector(),0.2)
 
+	if not is_on_floor():
+		move_vector -= Vector3(0, 1.5, 0)
+
+	if move_vector != Vector3.ZERO:
+		if not $"character-a2/AnimationPlayer".is_playing():
+			$"character-a2/AnimationPlayer".play("sprint" if running else "walk")
+
+		# Move
+		var direction = (transform.basis * move_vector)
+		velocity = direction * SPEED
+		velocity *=2.0 if running else 1.0
+		move_and_slide()
+
+		# Rotate toward movement direction
+		# We only want the Y-axis (horizontal turning)
+		var flat_direction = move_vector
+		flat_direction.y = 0
+		if flat_direction.length() > 0.01:
+			var target_angle = atan2(flat_direction.x, flat_direction.z)
+			# Rotate the whole body
+			$"character-a2".rotation.y = lerp_angle($"character-a2".rotation.y, target_angle, 5 * delta)
+	else:
+		if $"character-a2/AnimationPlayer".is_playing():
+			$"character-a2/AnimationPlayer".stop()
+		velocity = Vector3.ZERO
+		
+		
+		
 func _get_input_vector() -> Vector3:
 	var vector := Vector3.ZERO
 
@@ -35,8 +75,16 @@ func _get_input_vector() -> Vector3:
 		vector += Vector3.LEFT
 	if Input.is_action_pressed(input_right):
 		vector += Vector3.RIGHT
-	return vector.normalized()
 
+	vector = vector.normalized()
+
+	if Input.is_action_pressed(input_shift):
+		print("git shift")
+		running = true
+	else:
+		running = false
+
+	return vector
 
 func _get_input_rotation_vector() -> Vector3:
 	var vector := Vector3.ZERO
