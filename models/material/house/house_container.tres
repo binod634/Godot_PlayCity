@@ -3,4 +3,5 @@
 [ext_resource type="Texture2D" uid="uid://5klyxch6d0ja" path="res://texture_pic/daraz.png" id="1_402eu"]
 
 [resource]
+albedo_color = Color(0.590554, 0.703779, 0.649078, 1)
 albedo_texture = ExtResource("1_402eu")
