@@ -4,6 +4,7 @@ extends CharacterBody3D
 @export var SPEED := 0.25
 @export var MOUSE_SENSATIVITY = 0.01
 
+@onready var current_camera = $playercamera
 
 @export_group("Input_Actions")
 @export var input_left := "ui_left"
@@ -16,28 +17,43 @@ extends CharacterBody3D
 # variables
 var running = false
 
-
+func _enter_tree() -> void:
+	set_multiplayer_authority(name.to_int())
 
 func _ready() -> void:
-	if not DisplayServer.is_touchscreen_available():
-		print("its touch screen")
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	pass
+	current_camera.current = is_multiplayer_authority()
+	print("here in this ",name.to_int()," authority is: ",is_multiplayer_authority())
+	if not is_multiplayer_authority():
+		return
+	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-func _unhandled_input(event: InputEvent) -> void:
+
+
+func _input(event: InputEvent) -> void:
 	if event is InputEventScreenDrag:
 		rotate_y(-event.relative.x * MOUSE_SENSATIVITY)
 		#$playercamera.rotate_x(-event.relative.y * )
+	#if event is InputEventScreenTouch:
+		#_simulate_attack()
+		
 
 
 
 
 
 func _physics_process(delta: float) -> void:
+	if not is_multiplayer_authority():
+		return
+	if  Input.is_action_pressed("quit"):
+		$"../".exit_game(name.to_int())
+		
+	
 	var move_vector := _get_input_vector()
-
 	if not is_on_floor():
 		move_vector -= Vector3(0, 1.5, 0)
+
+
+
 
 	if move_vector != Vector3.ZERO:
 		if not $"character-a2/AnimationPlayer".is_playing():
@@ -49,7 +65,10 @@ func _physics_process(delta: float) -> void:
 		velocity *=2.0 if running else 1.0
 		move_and_slide()
 
-		# Rotate toward movement direction
+
+
+
+
 		# We only want the Y-axis (horizontal turning)
 		var flat_direction = move_vector
 		flat_direction.y = 0
@@ -63,7 +82,11 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector3.ZERO
 		
 		
-		
+
+
+
+
+
 func _get_input_vector() -> Vector3:
 	var vector := Vector3.ZERO
 
@@ -85,6 +108,11 @@ func _get_input_vector() -> Vector3:
 		running = false
 
 	return vector
+
+
+
+
+
 
 func _get_input_rotation_vector() -> Vector3:
 	var vector := Vector3.ZERO

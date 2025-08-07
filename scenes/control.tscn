@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://j0wrewjm0tno"]
+
+[ext_resource type="Script" uid="uid://bsu6m0qionr77" path="res://scenes/scripts/control.gd" id="1_5p55f"]
+[ext_resource type="PackedScene" uid="uid://dwdt57vdprepg" path="res://scenes/player.tscn" id="2_r67kn"]
+[ext_resource type="PackedScene" uid="uid://bjo2qowbp4big" path="res://scenes/main.tscn" id="3_brbbq"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5p55f")
+player_scene = ExtResource("2_r67kn")
+gameArena = ExtResource("3_brbbq")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="host" type="Button" parent="CanvasLayer"]
+offset_left = 374.0
+offset_top = 81.0
+offset_right = 938.0
+offset_bottom = 316.0
+text = "Host"
+
+[node name="join" type="Button" parent="CanvasLayer"]
+offset_left = 378.0
+offset_top = 364.0
+offset_right = 942.0
+offset_bottom = 599.0
+text = "Join"
+
+[connection signal="pressed" from="CanvasLayer/host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="CanvasLayer/join" to="." method="_on_join_pressed"]
