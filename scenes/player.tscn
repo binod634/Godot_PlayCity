@@ -1,8 +1,10 @@
-[gd_scene load_steps=47 format=4 uid="uid://dwdt57vdprepg"]
+[gd_scene load_steps=49 format=4 uid="uid://dwdt57vdprepg"]
 
 [ext_resource type="Script" uid="uid://lntqiun7syyl" path="res://scenes/scripts/player.gd" id="1_dqkch"]
 [ext_resource type="Texture2D" uid="uid://cf7fdlgtw0loo" path="res://models/characters/Textures/texture-a.png" id="2_qhqgy"]
+[ext_resource type="Script" uid="uid://b3gspxm1c2ldh" path="res://scenes/scripts/mesh_instance_3d.gd" id="4_dqkch"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="4_fjrip"]
+[ext_resource type="Texture2D" uid="uid://cg3686xwnt8yw" path="res://scenes/textures/crosshair010.png" id="5_qlg0r"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_daqto"]
 resource_name = "texture-a"
@@ -1854,7 +1856,7 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tbgi4"]
-height = 2.465
+height = 3.02
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dqkch"]
 properties/0/path = NodePath(".:position")
@@ -1871,10 +1873,19 @@ properties/3/spawn = true
 properties/3/replication_mode = 1
 
 [node name="player" type="CharacterBody3D"]
+floor_max_angle = 0.328122
 script = ExtResource("1_dqkch")
 
 [node name="playercamera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0.01, 0.14, 0.145)
+transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0.05, 0.14, 0.12)
+
+[node name="Node3D" type="Node3D" parent="playercamera"]
+transform = Transform3D(0.1, 0, 0, 0, 0.0984808, -0.0173648, 0, 0.0173648, 0.0984808, -3.72529e-09, 0.0124046, -0.358289)
+visible = false
+
+[node name="Sprite3D" type="Sprite3D" parent="playercamera/Node3D"]
+render_priority = 1
+texture = ExtResource("5_qlg0r")
 
 [node name="character-a2" type="Node3D" parent="."]
 transform = Transform3D(-0.05, 0, -7.54979e-09, 0, 0.05, 0, 7.54979e-09, 0, -0.05, 0, 0, 0)
@@ -1919,7 +1930,7 @@ libraries = {
 }
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0.0574999, 0)
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0.0649999, 0)
 shape = SubResource("CapsuleShape3D_tbgi4")
 
 [node name="Virtual Joystick" parent="." instance=ExtResource("4_fjrip")]
@@ -1930,3 +1941,7 @@ offset_bottom = -43.0
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_dqkch")
+
+[node name="MeshInstance3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16, 0)
+script = ExtResource("4_dqkch")

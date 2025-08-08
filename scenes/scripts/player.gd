@@ -14,6 +14,7 @@ extends CharacterBody3D
 @export var input_shift := "key_shift"
 
 
+var player_health := 1
 # variables
 var running = false
 
@@ -63,8 +64,13 @@ func _physics_process(delta: float) -> void:
 		var direction = (transform.basis * move_vector)
 		velocity = direction * SPEED
 		velocity *=2.0 if running else 1.0
-		move_and_slide()
-
+		var reportedCollisions = move_and_slide()
+		for i in range(get_slide_collision_count()):
+			var collision = get_slide_collision(i)
+			var body = collision.get_collider()
+			if body is RigidBody3D:
+				var push_strength = 0.001
+				body.apply_central_impulse(-collision.get_normal() * 1)
 
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bjo2qowbp4big"]
+[gd_scene load_steps=17 format=3 uid="uid://bjo2qowbp4big"]
 
 [ext_resource type="Material" uid="uid://diqm366xfkxnr" path="res://models/material/house/house_wall.tres" id="1_0wfyh"]
 [ext_resource type="Script" uid="uid://chgbdqpri2sw0" path="res://scenes/scripts/main.gd" id="1_85g3d"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://cy6hwt5n54s2j" path="res://scenes/textures/_albedo000.png" id="4_85g3d"]
 [ext_resource type="Material" uid="uid://cin7eryilslbn" path="res://models/material/player/player.tres" id="5_85g3d"]
 [ext_resource type="Material" uid="uid://1h5mnacxscc3" path="res://models/material/house/boxes.tres" id="5_choun"]
-[ext_resource type="PackedScene" uid="uid://g6rk5ydunovo" path="res://models/kenney_city-kit-industrial_1.0/Models/GLB format/building-a.glb" id="9_85g3d"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tefeu"]
 
@@ -204,8 +203,8 @@ size = Vector3(0.06, 0.21, 0.1)
 material = ExtResource("1_o5qli")
 
 [node name="ground0" type="CSGBox3D" parent="game/house/SingleFloor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.375, -0.015, 6.42161)
-size = Vector3(3.45, 0.01, 14.2832)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.375, -0.015, 1.01126)
+size = Vector3(3.45, 0.01, 3.4625)
 material = ExtResource("1_0wfyh")
 
 [node name="ground1" type="CSGBox3D" parent="game/house/SingleFloor"]
@@ -214,9 +213,9 @@ size = Vector3(3.45, 0.025, 3.43)
 material = ExtResource("1_0wfyh")
 
 [node name="CSGBox3D23" type="CSGBox3D" parent="game/house/SingleFloor/ground1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1025, 2.98023e-08, -1.295)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.075, 2.98023e-08, -1.295)
 operation = 2
-size = Vector3(0.495, 0.05, 0.38)
+size = Vector3(0.85, 0.05, 0.38)
 material = ExtResource("1_o5qli")
 
 [node name="CSGCylinder3D2" type="CSGCylinder3D" parent="game/house/SingleFloor"]
@@ -338,7 +337,7 @@ mesh = SubResource("SphereMesh_85g3d")
 shape = SubResource("SphereShape3D_85g3d")
 
 [node name="RigidBody3D5" type="RigidBody3D" parent="game/house/extra_items"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.55, 0.1875, 0.85)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.55, 0.57, 0.85)
 max_contacts_reported = 3
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="game/house/extra_items/RigidBody3D5"]
@@ -383,9 +382,6 @@ environment = SubResource("Environment_0wfyh")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="game"]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0.499154, -0.777804, 0.381925, 0.0290724, 0.455545, 0.889738, 1, 3.4, 3.6)
 shadow_enabled = true
-
-[node name="building-a2" parent="game" instance=ExtResource("9_85g3d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0457485, 8.08477)
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://dwdt57vdprepg")

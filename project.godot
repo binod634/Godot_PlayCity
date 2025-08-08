@@ -25,6 +25,7 @@ settings/stdout/print_fps=true
 window/size/viewport_width=1440
 window/size/viewport_height=720
 window/handheld/orientation=4
+window/vsync/vsync_mode=0
 
 [input]
 
